@@ -8,7 +8,18 @@ Tablo1 = gini.Tablo1
 basliklar = gini.basliklar
 kategori = gini.kategori
 
-    
-agacim = agac.dugumle([0,1,2,3,4,5,6,7,8,9,10,11,12,13])
-print(agacim)
-ciz.ciz(agacim)
+total1 = []
+for i in range(len(VeriS["SONUÇ"])):
+    total1.append(i)
+total = ["",total1]
+
+root = agac.TreeNode("bas", 0)
+
+agacim = agac.dugumle(total, root)
+
+dot =agac.Digraph(comment="Tree")
+agac.visualize_tree(root, dot)
+dot.render('tree', view=True)
+
+print(kategori)
+
