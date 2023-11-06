@@ -19,7 +19,12 @@ agacim = agac.dugumle(total, root)
 
 dot =agac.Digraph(comment="Tree")
 agac.visualize_tree(root, dot)
-dot.render('tree', view=True)
+dot.render('tree4', view=True)
+
+import pandas as pd
+dataframe2 = pd.read_excel('ornek2.xlsx')
+veritest,verisonuc = gini.dataframe_to_dict(dataframe2)
+
+#agac.yeniDeger(veritest,agacim,VeriS)
 
 print(kategori)
-

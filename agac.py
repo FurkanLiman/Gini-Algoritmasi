@@ -103,23 +103,26 @@ def dugumle(veri,root):
     else:
         
         verisol, verisag,kategori = gini.giniHesap(veri)
-        if verisol[0] == []:
+        if verisol[0] == [] or verisag[0] == []:
             indis = veri[1][0]
-            root.left = TreeNode(gini.VeriS["SONUÇ"][indis],0)
-        root.value = verisol[0]
-        if verisol[0] != []: 
+            root.value = gini.VeriS["SONUÇ"][indis]
+            root.left = None
+            root.right =None
+        else:
+            root.value = verisol[0][1]
+            
             try:
-                root.count = kategori[verisol[0][1]]
+                root.count = f"{kategori[verisol[0][1]]:.2f}"
             except:
                 root.count = 0
             try:
-                root.left = TreeNode(verisol[0],kategori[verisol[0][1]])
+                root.left = TreeNode(verisol[0][1],f"{kategori[verisol[0][1]]:.2f}")
             except:
-                root.left = TreeNode(verisol[0],0)
+                root.left = TreeNode(verisol[0][1],0)
             try:
-                root.right = TreeNode(verisag[0],kategori[verisag[0][1]])
+                root.right = TreeNode(verisag[0][1],f"{kategori[verisag[0][1]]:.2f}")
             except:
-                root.right = TreeNode(verisag[0],0)
+                root.right = TreeNode(verisag[0][1],0)
             
     if verisol[1] !=None or verisag[1] !=None:    
         tree = dugumOlustur( veri, dugumle(verisol,root.left),dugumle(verisag,root.right))
@@ -127,3 +130,10 @@ def dugumle(veri,root):
         return tree
 
 
+def yeniDeger(veri,agac,veris):
+    #katmanları ayırna değişkenler (0.23436, 'HBG') gibi ayrılan katmanın kendinde olmalı alt katmanda değil hepsini değiş
+    if veri[agac[0][1]][0] <= agac[0][2]:#eşik değeri içi değişecek
+        yeniDeger(veri,agac[1])
+    elif veri[agac[0][1]][0] > agac[0][2]:
+        yeniDeger(veri,agac[2])
+    print(veris["SONUÇ"][agac[1][0]])
