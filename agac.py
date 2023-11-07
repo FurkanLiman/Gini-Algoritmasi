@@ -44,23 +44,16 @@ def dugumle(veri,root):
             indis = veri[1][0]
             root.value = gini.VeriS["SONUÇ"][indis]
             
+            
             root.left = None
             root.right =None
         else:
             root.value = veri[0][1]
             
-            try:
-                root.count = f"{veri[0][0]:.2f}"
-            except:
-                root.count = 0
-            try:
-                root.left = TreeNode(verisol[0][1],f"{verisol[0][0]:.2f}")
-            except:
-                root.left = TreeNode(verisol[0][1],0)
-            try:
-                root.right = TreeNode(verisag[0][1],f"{verisag[0][0]:.2f}")
-            except:
-                root.right = TreeNode(verisag[0][1],0)
+            root.count = f"{veri[0][0]:.2f}"
+            root.left = TreeNode(verisol[0][1],f"{verisol[0][0]:.2f}")
+            root.right = TreeNode(verisag[0][1],f"{verisag[0][0]:.2f}")
+            
         
     if verisol[0] == 'yes' or verisol[0] == 'no':
             return [verisol[0]]
@@ -71,12 +64,11 @@ def dugumle(veri,root):
             return tree
 
 def yeniDeger(veri,agac,veris):
-    #veriler sözlüğünde dolaş
     
     if agac == ['yes'] or agac == ['no']:
         sonuc = agac
     else:
-        if veri[agac[0][0][1]] <= agac[0][0][0]:#eşik değeri içi değişecek
+        if veri[agac[0][0][1]] <= agac[0][0][0]:
             
             sonuc = yeniDeger(veri,agac[1],veris)
         elif veri[agac[0][0][1]] > agac[0][0][0]:

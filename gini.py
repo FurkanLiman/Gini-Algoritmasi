@@ -178,30 +178,3 @@ def giniHesap(veri):
         #sag = [[],[]]
     return sol,sag , kategori
     
-"""
-
-def giniHesap(veri):
-    veriler= veri[1]
-    yeniVeri = {}
-    yeniVeriS = {"SONUÇ":[]}
-    
-    for i in Veri:
-        yeniVeri[i] = []
-
-    for i in veriler:
-        for j in Veri:
-            yeniVeri[j].append(Veri[j][i])
-        yeniVeriS["SONUÇ"].append(VeriS["SONUÇ"][i])
-    #print(yeniVeri,yeniVeriS)
-    giniTablosu,kucuk = Gini_hesapla(kontrol(yeniVeri,yeniVeriS))
-    
-    kategori = kategori_yaz(yeniVeri)
-    sol ,sag = ayir(veriler,kucuk)
-    sol = [kucuk,sol]
-    sag = [kucuk,sag]
-
-    if veri == sol or veri==sag:
-        sol =[[],[]]
-        sag = [[],[]]
-    return sol,sag , kategori"""
-    

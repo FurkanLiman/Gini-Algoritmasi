@@ -1,19 +1,16 @@
 import agac
 import gini
-import ciz
 import pandas as pd
 
 Veri = gini.Veri
 VeriS=gini.VeriS
-Tablo1 = gini.Tablo1
-basliklar = gini.basliklar
-kategori = gini.kategori
 
 total1 = []
 for i in range(len(VeriS["SONUÇ"])):
     total1.append(i)
 
 giniTablosu,kucuk = gini.Gini_hesapla(gini.kontrol(Veri,VeriS))
+
 root = agac.TreeNode(kucuk[1], 124)
 kategori = gini.kategori_yaz(Veri)
 kucuk[0] = kategori[kucuk[1]]
@@ -33,6 +30,5 @@ sonuclar = agac.yenidegerTest(veritest,agacim,VeriS)
 dogru , yanlis = agac.karsilastir(verisonuc["SONUÇ"],sonuclar)
 
 print(f"dogruluk oranı:{(dogru/(dogru+yanlis)):.3f}")
-
 
 
