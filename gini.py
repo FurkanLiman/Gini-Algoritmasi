@@ -1,6 +1,6 @@
 import pandas as pd
 
-dataframe1 = pd.read_excel('ornek.xlsx')
+dataframe1 = pd.read_excel('Egitim_Test_Verileri/egitim1.xlsx')
 
 def dataframe_to_dict(dataframe):
     
@@ -96,10 +96,10 @@ def Gini_hesapla(Tablo):
             Gini = 2
         giniTablosu[i] = Gini
         
-    kucuk = 10,""
+    kucuk = [10,""]
     for i in giniTablosu:
         if giniTablosu[i] < kucuk[0]:
-            kucuk = giniTablosu[i],i
+            kucuk = [giniTablosu[i],i]
 
     return giniTablosu, kucuk
 
@@ -120,6 +120,65 @@ def ayir(veri,kucuk):
     return sol,sag
 
 
+def giniHesap(veri):
+    ayirici = veri[0]
+    veriler= veri[1]
+    yeniVeri = {}
+    yeniVeriS = {"SONUÇ":[]}
+    
+    for i in Veri:
+        yeniVeri[i] = []
+
+    for i in veriler:
+        for j in Veri:
+            yeniVeri[j].append(Veri[j][i])
+        yeniVeriS["SONUÇ"].append(VeriS["SONUÇ"][i])
+        
+        
+    kategori = kategori_yaz(yeniVeri)
+    sol ,sag = ayir(veriler,ayirici)
+    
+    yeniVeriSL = {"SONUÇ":[]}
+    yeniVeriSR = {"SONUÇ":[]}
+    
+    yeniVeriL = {}
+    for i in Veri:
+        yeniVeriL[i] = []
+
+    for i in sol:
+        for j in Veri:
+            yeniVeriL[j].append(Veri[j][i])
+        yeniVeriSL["SONUÇ"].append(VeriS["SONUÇ"][i])
+    
+    yeniVeriR = {}
+    for i in Veri:
+        yeniVeriR[i] = []
+
+    for i in sag:
+        for j in Veri:
+            yeniVeriR[j].append(Veri[j][i])
+        yeniVeriSR["SONUÇ"].append(VeriS["SONUÇ"][i])
+       
+    
+    
+    
+    giniTablosu,kucukL = Gini_hesapla(kontrol(yeniVeriL,yeniVeriSL))
+    giniTablosu,kucukR = Gini_hesapla(kontrol(yeniVeriR,yeniVeriSR))
+    kucukL[0] = kategori_yaz(yeniVeriL)[kucukL[1]]
+    kucukR[0] = kategori_yaz(yeniVeriR)[kucukR[1]]
+    sol = [kucukL,sol]
+    sag = [kucukR,sag]
+    
+
+    if veri[1] == sol[1] or veri[1]==sag[1]:
+        sol = [VeriS["SONUÇ"][veri[1][0]],[]]
+        sag = [VeriS["SONUÇ"][veri[1][0]],[]]
+        
+        #sol =[[],[]]
+        #sag = [[],[]]
+    return sol,sag , kategori
+    
+"""
 
 def giniHesap(veri):
     veriler= veri[1]
@@ -144,5 +203,5 @@ def giniHesap(veri):
     if veri == sol or veri==sag:
         sol =[[],[]]
         sag = [[],[]]
-    return sol,sag , kategori
+    return sol,sag , kategori"""
     
