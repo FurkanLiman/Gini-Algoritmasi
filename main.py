@@ -19,10 +19,10 @@ agacim = agac.dugumle(total, root)
 
 dot =agac.Digraph(comment="Tree")
 agac.visualize_tree(root, dot)
-dot.render('Agac_Gorsel/tree6', view=True)
+dot.render('Agac_Gorsel/tree', view=True)
 
 
-dataframe2 = pd.read_excel('Egitim_Test_Verileri/test1.xlsx')
+dataframe2 = pd.read_excel('Egitim_Test_Verileri/test2.xlsx')
 veritest,verisonuc = gini.dataframe_to_dict(dataframe2)
 
 sonuclar = agac.yenidegerTest(veritest,agacim,VeriS)
@@ -30,5 +30,3 @@ sonuclar = agac.yenidegerTest(veritest,agacim,VeriS)
 dogru , yanlis = agac.karsilastir(verisonuc["SONUÇ"],sonuclar)
 
 print(f"dogruluk oranı:{(dogru/(dogru+yanlis)):.3f}")
-
-

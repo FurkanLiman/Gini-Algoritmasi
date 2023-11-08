@@ -1,6 +1,6 @@
 import pandas as pd
 
-dataframe1 = pd.read_excel('Egitim_Test_Verileri/egitim1.xlsx')
+dataframe1 = pd.read_excel('Egitim_Test_Verileri/egitim2.xlsx')
 
 def dataframe_to_dict(dataframe):
     
@@ -162,19 +162,56 @@ def giniHesap(veri):
     
     
     
-    giniTablosu,kucukL = Gini_hesapla(kontrol(yeniVeriL,yeniVeriSL))
-    giniTablosu,kucukR = Gini_hesapla(kontrol(yeniVeriR,yeniVeriSR))
+    giniTablosuL,kucukL = Gini_hesapla(kontrol(yeniVeriL,yeniVeriSL))
+    giniTablosuR,kucukR = Gini_hesapla(kontrol(yeniVeriR,yeniVeriSR))
     kucukL[0] = kategori_yaz(yeniVeriL)[kucukL[1]]
     kucukR[0] = kategori_yaz(yeniVeriR)[kucukR[1]]
     sol = [kucukL,sol]
     sag = [kucukR,sag]
+    solGiniSay = 0
+    for i in giniTablosuL:
+        if giniTablosuL[i] == 0:
+            solGiniSay+=1
+    sagGiniSay = 0
+    for i in giniTablosuR:
+        if giniTablosuR[i] == 0:
+            sagGiniSay+=1
     
-
-    if veri[1] == sol[1] or veri[1]==sag[1]:
-        sol = [VeriS["SONUÇ"][veri[1][0]],[]]
-        sag = [VeriS["SONUÇ"][veri[1][0]],[]]
+    if solGiniSay==len(giniTablosuL):
+        sol = [VeriS["SONUÇ"][sol[1][0]],[]]
+    else:
+        sol1,sag1 = yaprakMi(sol)
+        if sol1 == sol[1] or sag1 == sol[1]:
+            sol = [VeriS["SONUÇ"][sol[1][0]],[]]
         
-        #sol =[[],[]]
-        #sag = [[],[]]
-    return sol,sag , kategori
+    if sagGiniSay==len(giniTablosuR):
+        sag = [VeriS["SONUÇ"][sag[1][0]],[]]
+    else:
+        
+        sol2,sag2 = yaprakMi(sag)
+        if sol2 == sag[1] or sag2 == sag[1]:
+            sag = [VeriS["SONUÇ"][sag[1][0]],[]]   
+    return sol,sag 
+
+def yaprakMi(veri):
     
+    ayirici = veri[0]
+    veriler= veri[1]
+    yeniVeri = {}
+    yeniVeriS = {"SONUÇ":[]}
+
+    for i in Veri:
+        yeniVeri[i] = []
+
+    for i in veriler:
+        for j in Veri:
+            yeniVeri[j].append(Veri[j][i])
+        yeniVeriS["SONUÇ"].append(VeriS["SONUÇ"][i])
+        
+        
+    kategori = kategori_yaz(yeniVeri)
+    sol1 ,sag1 = ayir(veriler,ayirici)
+
+    
+    
+    return sol1,sag1

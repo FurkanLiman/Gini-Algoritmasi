@@ -38,30 +38,44 @@ def dugumle(veri,root):
         pass
     else:
         
-        verisol, verisag,kategori = gini.giniHesap(veri)
+        verisol, verisag = gini.giniHesap(veri)
         
-        if verisol[1] == [] or verisag[1] == []:
-            indis = veri[1][0]
-            root.value = gini.VeriS["SONUÇ"][indis]
-            
-            
-            root.left = None
-            root.right =None
-        else:
-            root.value = veri[0][1]
-            
-            root.count = f"{veri[0][0]:.2f}"
-            root.left = TreeNode(verisol[0][1],f"{verisol[0][0]:.2f}")
-            root.right = TreeNode(verisag[0][1],f"{verisag[0][0]:.2f}")
-            
         
-    if verisol[0] == 'yes' or verisol[0] == 'no':
-            return [verisol[0]]
     
-    if verisol[1] !=[] or verisag[1] !=[]:
-            tree = dugumOlustur( veri, dugumle(verisol,root.left),dugumle(verisag,root.right))
-
+    if (verisol[0] == 'yes' or verisol[0] == 'no')and(verisag[0] != 'yes' and verisag[0] != 'no'):
+        root.value = veri[0][1]
+        root.count = f"{veri[0][0]:.2f}"
+        root.left=TreeNode(verisol[0],f"{veri[0][0]:.2f}")
+        root.right=TreeNode(verisag[0][1],f"{verisag[0][0]:.2f}") 
+        tree = dugumOlustur( veri,[verisol[0]],dugumle(verisag,root.right))
+        return tree
+    elif (verisag[0] == 'yes' or verisag[0] == 'no')and((verisol[0] != 'yes' and verisol[0] != 'no')):
+        root.value = veri[0][1]
+        root.count = f"{veri[0][0]:.2f}"
+        root.left=TreeNode(verisol[0][1],f"{verisol[0][0]:.2f}")
+        root.right=TreeNode(verisag[0],f"{veri[0][0]:.2f}")
+        tree = dugumOlustur( veri,dugumle(verisol,root.left),[verisag[0]])
+        return tree
+    elif (verisag[0] == 'yes' or verisag[0] == 'no')and((verisol[0] == 'yes' or verisol[0] == 'no')): 
+        if verisol[0] == verisag[0]:
+            root.value = verisol[0]
+            root.count = f"{veri[0][0]:.2f}"
+            tree = dugumOlustur( veri, [verisol[0]],[verisag[0]])
             return tree
+        else:
+            root.value= veri[0][1]
+            root.count = f"{veri[0][0]:.2f}"
+            root.left=TreeNode(verisol[0],f"{veri[0][0]:.2f}")
+            root.right=TreeNode(verisag[0],f"{veri[0][0]:.2f}")
+            tree = dugumOlustur( veri, [verisol[0]],[verisag[0]])
+            return tree
+    else :
+        root.value = veri[0][1]
+        root.count = f"{veri[0][0]:.2f}"
+        root.left=TreeNode(verisol[0],f"{veri[0][0]:.2f}")
+        root.right=TreeNode(verisag[0],f"{veri[0][0]:.2f}")
+        tree = dugumOlustur( veri, dugumle(verisol,root.left),dugumle(verisag,root.right))
+        return tree
 
 def yeniDeger(veri,agac,veris):
     
